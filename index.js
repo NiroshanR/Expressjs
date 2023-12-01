@@ -5,10 +5,12 @@ $ npm install express --save - to install express.js
 
 //Import express
 const express = require('express');
+const bodyParser = require("body-parser")
 
 //Create an application
 
 const app = express();
+app.use(bodyParser.urlencoded({extended: false}))
 
 const USERS = [
     {
@@ -157,6 +159,23 @@ app.get('/download-img', (req, res) =>{
     res.download(__dirname + '/hp-logo.jpg')
     
 })
+
+// To navigate to register page
+app.get('/register', (req, res) =>{
+
+    res.sendFile(__dirname + '/register.html')
+    
+})
+
+app.post('/api/register', (req, res) =>{
+    const firstName = "X", lastName = "Y"
+    console.log(req.body) // gives us only the requested data avoiding unwanted data in terminal
+    res.send(firstName + ' ' + lastName)
+    
+})
+
+
+
 // Attach the server to a port
 app.listen(4000,() =>{
     console.log('Server running successfully on http://localhost:4000')
